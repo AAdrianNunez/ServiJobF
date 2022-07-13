@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-lg navbar-static-top tooltip-demo" role="navigation">
+    <a href="#" class="navbar-brand">
+        <i class="fa fa-2x fa-id-card mr-1"></i><span>ServiJob</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fa fa-reorder"></i>
+    </button>
+    <div class="navbar-collapse collapse" id="navbar">
+        <ul class="nav navbar-nav mr-auto">
+            <li><a href="../SearchWorker.jsp">Inicio</a></li>           
+        </ul>
+        <ul class="nav navbar-top-links navbar-right">
+            <li>
+                <span class="welcome-message">Bienvenido</span>
+            </li>
+            <li>
+                <label class="badge badge-info"><i class="fa fa-user"></i><span id="lblUserName"></span></label>
+            </li>   
+            <li>
+                <a href="#" class="dropdown-toggle topNavbarIcon" data-toggle="dropdown">
+                    <div data-toggle="tooltip" data-placement="bottom" title="Usuario">
+                        <i class="fa fa-user-circle-o"></i>
+                    </div>
+                </a>
+                <ul id="topNavbarSupport" class="dropdown-menu dropdown-user animated fadeInDown">                   
+                    <li>
+                        <a href="../PerfilUser.jsp"><i class="fa fa-user-circle-o text-info"></i> Mi Perfil</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <button id="btnSessionEnded" type="button" class="btn btn-sm btn-danger ml-2">Cerrar Sesi&oacute;n <i class="fa fa-sign-out"></i></button>
+            </li>
+        </ul>
+    </div>
+</nav>

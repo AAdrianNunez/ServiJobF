@@ -1,0 +1,74 @@
+body {
+    background: linear-gradient(45deg, #293846 0%, #2f4050 100%);
+}
+/*header*/
+.header {
+    padding: 10px 20px;
+}
+.header span {
+    background-color: transparent;
+    color: #23c6c8;
+    padding: 3px 8px;
+    text-shadow: none;
+    border-radius: .25em;
+    cursor: pointer;
+}
+.header span:hover,
+.header span:hover i{
+    background-color:#23c6c8;
+    color:#fff;
+}
+
+/*form*/
+.outer {
+    display: table;
+    position: absolute;
+    height: calc(100% - 40px);
+    width: 100%;
+    top:40px;
+}
+.middle {
+    display: table-cell;
+    vertical-align: middle;
+}
+.login_panel {
+    max-width: 360px;
+    margin: 0 auto;
+    padding-bottom:60px;
+}
+.ibox-content {
+    padding:30px;
+    border-radius:3px;
+    box-shadow: 0 0 10px #999;
+    min-height: initial;
+}
+.group-password{
+    position:relative;
+    display:flex;
+}
+.form-control {
+    border: 0;
+    border-bottom: 1px solid #e5e6e7;
+    border-radius: 0;
+    padding-left: 0;
+    padding-right: 0;
+    outline: none;
+}
+.vision-password {
+    color:#000;
+    cursor: pointer;
+    top: 6px;
+    right: 6px;
+    padding:5px;
+    border-radius:50%;
+    position: absolute;
+    z-index: 9;
+}
+.vision-password:hover {
+    background-color:#00000014;
+}
+.footer{
+    background:transparent;
+    border: 0px solid;
+    margin-left:0px;
+}

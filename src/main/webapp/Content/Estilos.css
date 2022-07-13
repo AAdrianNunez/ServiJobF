@@ -1,0 +1,129 @@
+*{
+ 	margin: 0;
+ 	padding: 0;
+ 	box-sizing: border-box;
+}
+body {
+    background: rgb(67 116 195);
+    font-family: "open sans", sans-serif;
+    color: #220a3d;
+    overflow-x: hidden;
+}
+.container-cards .users img{
+	margin-top: 30px;
+	border-radius: 50%;
+	background: white;
+	width: 100px;
+	height: 100px;
+}
+.container-cards .users:hover{
+	transform: translateY(-10px);
+	box-shadow: 0 12px 16px rgba(0, 0, 0, 0.2);
+}
+.container-cards .users{
+	background-image: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
+	width: 200px;
+	height: 300px;
+	border-radius: 8px;
+	margin: 10px;
+	margin-top: 20px;
+	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+	text-align: center;
+	transition: all 0.25s;
+}
+.container-cards{
+	width: 90%;
+	margin: 50px;
+	padding: 30px 1px;
+	justify-content: center;
+	display: flex;
+	flex-wrap: wrap;
+	position: relative;
+}
+.outer {
+    display: table;
+    position: absolute;
+    height: calc(100% - 40px);
+    width: 100%;
+    top: 40px;
+}
+.middle {
+    display: table-cell;
+    vertical-align: middle;
+}
+.login_panel {
+    max-width: 360px;
+    margin: 0 auto;
+    padding-bottom: 60px;
+}
+.ibox-content {
+    padding: 30px;
+    border-radius: 3px;
+    box-shadow: 0 0 10px #999;
+    background-color: #f0f3ff;
+    border: 1px solid #ddd;
+    margin-bottom: 40px;
+}
+.group-password {
+    position: relative;
+    display: flex;
+}
+.vision-password {
+    color: #000;
+    cursor: pointer;
+    top: 8px;
+    right: 9px;
+    padding: 5px;
+    border-radius: 50%;
+    position: absolute;
+    z-index: 9;
+}
+.vision-password:hover {
+    background-color: #000014;
+}
+.login_panel .btn-orange:hover {
+    color: #fff;
+    background-color: #fb7823;
+    border: 1px solid #fb7823;
+}
+.ibox {
+    clear: both;
+    margin-top: 0;
+    padding: 0;
+}
+.puntaje{
+    width: 400px;
+    height: 500px;
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 250px;
+    border-radius: 50px;
+    border-width: 50px;
+}
+.top{
+    background: rgb(0,0,50);
+    padding: 10px;
+    display: flex;
+}
+.perfil{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin: 5px;
+}
+.container{
+    max-width: 720px;
+}
+
+.datos_panel {
+    width: 700px;
+    margin: 30px;
+}
+.contacto_panel{
+    width: 700px;
+    margin: 30px;
+}
+.password_panel{
+    width: 700px;
+    margin: 30px;
+}

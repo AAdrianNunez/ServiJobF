@@ -1,0 +1,25 @@
+.contact-box {
+    background-color: #ffffff;
+    border: 1px solid #e7eaec;
+    border-radius: 5px;
+    padding: 0;
+    margin-bottom: 20px;
+}
+.contact-box .contact-box-body {
+    display: block;
+    background-color: #ffffff;
+    padding: 20px;
+    text-align: center;
+    color: inherit;
+}
+.contact-box .contact-box-body img {
+    width: 80px;
+    height: 80px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.contact-box .contact-box-footer {
+    text-align: center;
+    border-top: 1px solid #e7eaec;
+    padding: 15px 20px;
+}
