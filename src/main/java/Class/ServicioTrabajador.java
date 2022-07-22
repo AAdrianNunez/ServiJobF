@@ -2,6 +2,7 @@
 package Class;
 
 public class ServicioTrabajador {
+    private int IDServicioTrabajador;    
     private int IDServicio;
     private int IDTrabajador;
     private String Descripcion;
@@ -37,6 +38,14 @@ public class ServicioTrabajador {
 
     public void setServicio(String Servicio) {
         this.Servicio = Servicio;
+    }
+
+    public int getIDServicioTrabajador() {
+        return IDServicioTrabajador;
+    }
+
+    public void setIDServicioTrabajador(int IDServicioTrabajador) {
+        this.IDServicioTrabajador = IDServicioTrabajador;
     }
     
     

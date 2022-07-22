@@ -12,6 +12,22 @@
         <servlet-name>ControlUbigeoDistrito</servlet-name>
         <servlet-class>miServlet.ControlUbigeoDistrito</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ControlSeguridad</servlet-name>
+        <servlet-class>miServlet.ControlSeguridad</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ControlServicio</servlet-name>
+        <servlet-class>miServlet.ControlServicio</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ControlServicioTrabajador</servlet-name>
+        <servlet-class>miServlet.ControlServicioTrabajador</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ControlSolicitud</servlet-name>
+        <servlet-class>miServlet.ControlSolicitud</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ControlTrabajador</servlet-name>
         <url-pattern>/ControlTrabajador</url-pattern>
@@ -23,6 +39,22 @@
     <servlet-mapping>
         <servlet-name>ControlUbigeoDistrito</servlet-name>
         <url-pattern>/ControlUbigeoDistrito</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControlSeguridad</servlet-name>
+        <url-pattern>/ControlSeguridad</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControlServicio</servlet-name>
+        <url-pattern>/ControlServicio</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControlServicioTrabajador</servlet-name>
+        <url-pattern>/ControlServicioTrabajador</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControlSolicitud</servlet-name>
+        <url-pattern>/ControlSolicitud</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -8,6 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import Capa_Datos.NegocioTrabajador;
 import com.google.gson.Gson;
+import java.io.File;
+import java.util.List;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 public class ControlTrabajador extends HttpServlet {
     
@@ -20,13 +26,31 @@ public class ControlTrabajador extends HttpServlet {
         if(op==1)ListaTrabajador(request, response);
         if(op==2)ObtenerInformacionTrabajadorCliente(request, response);        
         if(op==3)PuntajeTrabajador(request, response);
-        if(op==4)ListaServiciosPorTrabajador(request, response);        
+        if(op==4)ObtenerInformacionTrabajador(request, response);
         if(op==5)ListarComentarioPorTrabajador(request, response);        
         if(op==6)CrearComentario(request, response);  
-        if(op==7)RegistrarCalificacion(request, response);  
-        if(op==8)RegistrarSolicitud(request, response);  
-        if(op==9)RegistrarTrabajador(request, response);
-        
+        if(op==7)RegistrarCalificacion(request, response); 
+        if(op==8)ActualizarTrabajador(request, response); 
+        if(op==9){
+            try {
+                String IDTrabajador = request.getParameter("IDTrabajador");
+                FileItemFactory file = new DiskFileItemFactory();
+                ServletFileUpload fileUpload = new ServletFileUpload(file);
+                List items = fileUpload.parseRequest(request);
+                for (int i = 0; i < items.size(); i++) {
+                    FileItem fileItem = (FileItem) items.get(i);
+                    if (!fileItem.isFormField()) {
+                        File f = new File("C:\\Users\\vrosa\\Desktop\\jsf13\\ServijobFinal\\src\\main\\webapp\\Image\\Workers\\" + IDTrabajador + ".jpg");
+                        if(f.exists()){
+                            f.delete();
+                        }
+                        fileItem.write(f);
+                    } 
+                }
+                
+            } catch (Exception e) {
+            }
+        }
     }
     
     protected void ListaTrabajador(HttpServletRequest request, HttpServletResponse response)
@@ -55,14 +79,6 @@ public class ControlTrabajador extends HttpServlet {
         out.println(gs.toJson(m.PuntajeTrabajador(IDTrabajador)));        
     }
     
-    protected void ListaServiciosPorTrabajador(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        int IDTrabajador = Integer.parseInt(request.getParameter("IDTrabajador"));
-        PrintWriter out = response.getWriter();
-        Gson gs=new Gson();
-        out.println(gs.toJson(m.ListaServiciosPorTrabajador(IDTrabajador)));        
-    }
-    
     protected void ListarComentarioPorTrabajador(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int IDTrabajador = Integer.parseInt(request.getParameter("IDTrabajador"));
@@ -83,36 +99,52 @@ public class ControlTrabajador extends HttpServlet {
             throws ServletException, IOException {
         int IDCliente = Integer.parseInt(request.getParameter("IDCliente"));
         int IDTrabajador = Integer.parseInt(request.getParameter("IDTrabajador"));
-        int Puntaje = Integer.parseInt(request.getParameter("Puntaje"));
+        int Puntaje = Integer.parseInt(request.getParameter("Puntaje"));        
         PrintWriter out = response.getWriter();
         Gson gs=new Gson();
         out.println(gs.toJson(m.RegistrarCalificacion(IDCliente, IDTrabajador, Puntaje)));        
     }
     
-    protected void RegistrarSolicitud(HttpServletRequest request, HttpServletResponse response)
+    protected void ObtenerInformacionTrabajador(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int IDCliente = Integer.parseInt(request.getParameter("IDCliente"));
         int IDTrabajador = Integer.parseInt(request.getParameter("IDTrabajador"));
         PrintWriter out = response.getWriter();
         Gson gs=new Gson();
-        out.println(gs.toJson(m.RegistrarSolicitud(IDCliente, IDTrabajador)));       
-    }    
-    
-    protected void RegistrarTrabajador(HttpServletRequest request, HttpServletResponse response)
+        out.println(gs.toJson(m.ObtenerInformacionTrabajador(IDTrabajador)));        
+    }
+       
+    protected void ActualizarTrabajador(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String Nombre = request.getParameter("Nombre");
-        String Apellido = request.getParameter("Apellido");
-        String Telefono = request.getParameter("Telefono");
+        int IDTrabajador = Integer.parseInt(request.getParameter("IDTrabajador"));
+        String IDUbigeoDistrito = request.getParameter("IDUbigeoDistrito");
+        String Telefono = request.getParameter("Telefono");            
+        String Presentacion = request.getParameter("Presentacion");  
+        String Email = request.getParameter("Email");  
         String Password = request.getParameter("Password");        
-        int TipoDocumento=Integer.parseInt(request.getParameter("TipoDocumento"));
-        String NumeroDocumento = request.getParameter("NumeroDocumento");
-        String Email = request.getParameter("Email");
-        String Presentacion = request.getParameter("Presentacion");
-        String FechaNacimiento = request.getParameter("FechaNacimiento");        
         PrintWriter out = response.getWriter();
         Gson gs=new Gson();
-        out.println(gs.toJson(m.RegistrarTrabajador(Nombre, Apellido, Telefono, Password, TipoDocumento, NumeroDocumento, Email,Presentacion, FechaNacimiento)));        
-    }    
+        out.println(gs.toJson(m.ActualizarTrabajador(IDTrabajador, IDUbigeoDistrito, Telefono, Presentacion, Email, Password)));        
+    }
+    
+    public void CargarImagen(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+                try {
+                    FileItemFactory file = new DiskFileItemFactory();
+                    ServletFileUpload fileUpload = new ServletFileUpload(file);
+                    List items = fileUpload.parseRequest(request);
+                    for (int i = 0; i < items.size(); i++) {
+                        FileItem fileItem = (FileItem) items.get(i);
+                        if (!fileItem.isFormField()) {
+                            File f = new File("C:\\Users\\vrosa\\Desktop\\jsf13\\ServijobFinal\\src\\main\\webapp\\Image\\Workers\\" + fileItem.getName());
+                            fileItem.write(f);
+                        } 
+                    }
+                } catch (Exception e) {
+                }
+                //request.getRequestDispatcher("Controlador?accion=Listar").forward(request, response);          
+        
+       
+    }
     
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

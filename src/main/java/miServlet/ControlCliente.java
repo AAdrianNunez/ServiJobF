@@ -17,24 +17,26 @@ import javax.servlet.http.HttpServletResponse;
 public class ControlCliente extends HttpServlet {
 
     NegocioCliente m=new NegocioCliente();
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         int op=Integer.parseInt(request.getParameter("op"));
-        if(op==1)ValidarCliente(request, response);
+        if(op==1)ValidarEmail(request, response);
         if(op==2)RegistrarCliente(request, response);
         if(op==3)ActualizarCliente(request, response);
         if(op==4)ObtenerInformacionCliente(request, response);
     }
     
-    protected void ValidarCliente(HttpServletRequest request, HttpServletResponse response)
+    protected void ValidarEmail(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String Email = request.getParameter("Email");
-        String Password = request.getParameter("Password");
+        int IDCliente=Integer.parseInt(request.getParameter("IDCliente"));
         PrintWriter out = response.getWriter();
         Gson gs=new Gson();
-        out.println(gs.toJson(m.ValidarCliente(Email, Password)));        
+        out.println(gs.toJson(m.ValidarEmail(Email, IDCliente)));        
     }
+    
     protected void RegistrarCliente(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String Nombre = request.getParameter("Nombre");
@@ -48,6 +50,7 @@ public class ControlCliente extends HttpServlet {
         Gson gs=new Gson();
         out.println(gs.toJson(m.RegistrarCliente(Nombre, Apellido, Telefono, Password, TipoDocumento, NumeroDocumento, Email)));        
     }
+    
     protected void ActualizarCliente(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int IDCliente=Integer.parseInt(request.getParameter("IDCliente"));

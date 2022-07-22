@@ -58,8 +58,7 @@
                     </ul>
                 </div>
             </div>
-        </div>        
-    </div>
+        </div> 
     </body>   
     <jsp:include page="Shared/_footer.html" />
     <script src="Script/SERVIJOB/Index.js"></script>

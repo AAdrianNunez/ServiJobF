@@ -829,3 +829,47 @@ div.scrollbar{
 .select2-selection--multiple .select2-search__field {
     width: auto !important;
 }
+.select2-container--default.select2-container--disabled .select2-selection--single {
+    background-color: #fff !important;
+}
+/*DROPZONE*/
+.dz-default{
+    color: #ccc;
+}
+.dropzone {
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+    color: #ccc;
+    border-radius:5px;
+    font-weight: 400;
+    border: 2px dashed;
+}
+.dropzone .dz-preview .dz-remove {
+    font-size:12px;
+    background-color: #ed5565;
+    padding: 3px 7px;
+    line-height: 1;
+    color: #fff;
+    vertical-align: middle;
+    border-radius: 10px;
+    display: initial;
+    margin-top:5px;
+}
+.dropzone .dz-preview .dz-image {
+    width: 110px;
+    height: 110px;
+    margin-bottom:8px;
+}
+
+.dropzone .dz-preview .dz-remove:hover {
+    text-decoration: none !important;
+    background-color:#ec4758;
+}

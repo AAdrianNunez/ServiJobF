@@ -1,5 +1,7 @@
+var fecha = new Date();
 var IDTrabajador = '';
 var IDCliente = '';
+
 $(document).ready(function () {  
     if(sessionStorage.getItem('NombreCompleto') !== null){
         $("#lblCliente").html(sessionStorage.getItem('NombreCompleto'));  
@@ -19,18 +21,22 @@ function ObtenerInformacionTrabajadorCliente(IDTrabajador){
     $.get("ControlTrabajador", {op, IDTrabajador, IDCliente}, (response) => {  
         const dato = JSON.parse(response);
         if(dato.IDTrabajador !== 0){  
-            $("#imgWorker").attr("src","Image/Workers/" + dato.IDTrabajador + ".jpg");
+            $("#imgWorker").attr("src","Image/Workers/" + dato.IDTrabajador + ".jpg?time=" + fecha.getSeconds());
             $("#lblName").html(dato.Nombre + " " + dato.Apellido);    
-            TipoDocumento = dato.TipoDocumento === 1 ? "DNI" : "Carnet de extranjeria";            
-            let html = `<i class='fa fa-id-card-o' title='` + TipoDocumento + `'></i> <span>` + TipoDocumento + `</span>
-                        <br><i class='fa fa-birthday-cake' title='Edad'></i> <span>` + dato.FechaNacimiento + `</span>
+            let TipoDocumento = dato.TipoDocumento === 1 ? "DNI" : "Carnet de extranjeria";          
+            let Year = GetEdad(dato.FechaNacimiento);
+            let html = `<i class='fa fa-id-card-o' title='` + TipoDocumento + `'></i> <span>` + dato.NumeroDocumento + `</span>
+                        <br><i class='fa fa-birthday-cake' title='Edad'></i> <span>` + dato.FechaNacimiento + ` (` + Year + ` Años)</span>
                         <br><i class='fa fa-map-marker' title='Distrito'></i> <span>` + dato.Distrito + `</span>`;
             if(dato.IDSolicitud === 0){
-                html += `<br><button type='button' class='btn btn-sm btn-warning mt-2' onclick='Contactar(` + IDCliente + `,` + IDTrabajador + `)'><i class='fa fa-phone'></i> Contactar</button>`
+                html += `<br><button type='button' class='btn btn-sm btn-warning mt-2' onclick='Contactar(` + IDCliente + `,` + IDTrabajador + `)'><i class='fa fa-phone'></i> Contactar</button>`;
             } else {
                 html += `<br><i class='fa fa-envelope' title='E-mail'></i> <span>` + dato.Email + `</span>       
                          <br><i class='fa fa-mobile-phone' title='Celular'></i> <span>` + dato.Telefono + `</span>`;
             }
+            if(dato.EstadoSolicitud === 2){
+                $("#divEvaluation").removeClass("d-none");
+            }            
             $("#divInformation").html(html);
             $("#divAboutMe").html(dato.Presentacion);
             PuntajeTrabajador(IDTrabajador);
@@ -87,8 +93,8 @@ function PuntajeTrabajador(IDTrabajador){
 }
 
 function ListaServiciosPorTrabajador(IDTrabajador){
-    op = "4";      
-    $.get("ControlTrabajador", {op, IDTrabajador}, (response) => {  
+    op = "1";      
+    $.get("ControlServicioTrabajador", {op, IDTrabajador}, (response) => {  
         const dato = JSON.parse(response);
         if(dato.length > 0){ 
             let count = 0;
@@ -116,7 +122,7 @@ function ListarComentarioPorTrabajador(IDTrabajador){
             let html = ``;
             dato.forEach(d => {             
                 count++;
-                html += `<div class="row border-bottom mb-3">
+                html += `<div class="row` + (count === dato.length ? `` : ` border-bottom mb-3`) + `">
                             <div class="col-2 mb-3 text-center">
                                 <i class="fa fa-user-circle fa-4x text-warning mb-2"></i>
                                 <br><strong>${d.Cliente}</strong>
@@ -135,12 +141,14 @@ function ListarComentarioPorTrabajador(IDTrabajador){
 }
 
 $('#btnComent').click(function () {
-    let IDCliente = 0;
     let Comentario = $("#txtComent").val();
-    if(sessionStorage.getItem('NombreCompleto') !== null){
-        IDCliente = parseInt(sessionStorage.getItem('IDCliente'));
-    }    
-    CrearComentario(IDCliente, IDTrabajador, Comentario);    
+    if(!checkRequiret($("#txtComent"))){        
+        message("error", "No ha ingresado ningún comentario.", "Error de Dato");
+        return false;
+    }  
+    let Puntaje = parseInt($("input[name=rbtQualification]:checked").val());
+    RegistrarCalificacion(IDCliente, IDTrabajador, Puntaje);  
+    CrearComentario(IDCliente, IDTrabajador, Comentario);      
 });
 
 function CrearComentario(IDCliente, IDTrabajador, Comentario){
@@ -149,17 +157,28 @@ function CrearComentario(IDCliente, IDTrabajador, Comentario){
         const dato = JSON.parse(response);
         if(dato > 0){ 
             $("#txtComent").val("");
-            $("#divMessage").addClass("d-none");
-            ListarComentarioPorTrabajador(IDTrabajador);
+            SweetAlert("success", "Operación Exitosa", "Se registro su evaluación satisfactoriamente.");
+            ListarComentarioPorTrabajador(IDTrabajador);               
         } else {
-            $("#divMessage").removeClass()("d-none");
+            SweetAlert("error", "Operación Inválida", "Error al crear la cuenta.");            
+        }
+    });
+}
+
+function RegistrarCalificacion(IDCliente, IDTrabajador, Puntaje){
+    op = "7";      
+    $.get("ControlTrabajador", {op, IDCliente, IDTrabajador, Puntaje}, (response) => {  
+        const dato = JSON.parse(response);
+        if(dato > 0){ 
+            PuntajeTrabajador(IDTrabajador);
+            $("#divEvaluation").addClass("d-none");
         }
     });
 }
 
 function Contactar(IDCliente, IDTrabajador){
-    op = "8";      
-    $.get("ControlTrabajador", {op, IDCliente, IDTrabajador}, (response) => {  
+    op = "3";      
+    $.get("ControlSolicitud", {op, IDCliente, IDTrabajador}, (response) => {  
         const dato = JSON.parse(response);
         if(dato > 0){ 
             ObtenerInformacionTrabajadorCliente(IDTrabajador);

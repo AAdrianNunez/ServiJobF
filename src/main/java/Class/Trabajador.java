@@ -14,9 +14,10 @@ public class Trabajador {
     private String Servicio;
     private String Distrito;
     private int Tipo;
-    private String Contraseña;
+    private String Password;
     private int IDSolicitud;
-
+    private int EstadoSolicitud;
+    
     public int getIDSolicitud() {
         return IDSolicitud;
     }
@@ -128,11 +129,19 @@ public class Trabajador {
         this.Tipo = Tipo;
     }
 
-    public String getContraseña() {
-        return Contraseña;
+    public String getPassword() {
+        return Password;
     }
 
-    public void setContraseña(String Contraseña) {
-        this.Contraseña = Contraseña;
+    public void setPassword(String Password) {
+        this.Password = Password;
+    }
+
+    public int getEstadoSolicitud() {
+        return EstadoSolicitud;
+    }
+
+    public void setEstadoSolicitud(int EstadoSolicitud) {
+        this.EstadoSolicitud = EstadoSolicitud;
     }
 }

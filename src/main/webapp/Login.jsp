@@ -30,8 +30,7 @@
                             <button type="button" id="btnLogin" class="btn btn-block btn-warning">Iniciar Sesión</button>
                             <div class="mt-2 text-center">
                                 <a href="Registro.jsp">Crear cuenta</a>
-                            </div>
-                            <div id="divMessage"></div>
+                            </div>                            
                         </form>                          
                     </div>
                 </div>

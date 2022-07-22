@@ -1,16 +1,15 @@
-
 package Class;
 
 public class Servicio {
-    private int Servicio;
+    private int IDServicio;
     private String Oficio;
 
-    public int getServicio() {
-        return Servicio;
+    public int getIDServicio() {
+        return IDServicio;
     }
 
-    public void setServicio(int Servicio) {
-        this.Servicio = Servicio;
+    public void setIDServicio(int IDServicio) {
+        this.IDServicio = IDServicio;
     }
 
     public String getOficio() {

@@ -19,7 +19,7 @@
                         <div class="row justify-content-md-center">
                             <div class="col col-lg-5">
                                 <div class="input-group">
-                                    <div class="input-group-prepend">
+                                    <div class="input-group-prepend" style="width:200px;">
                                         <select id="ddlUbigeoDistrito" name="ddlUbigeoDistrito" class="select2 form-control" tabindex="2">                                            
                                         </select>
                                     </div>    
@@ -36,6 +36,7 @@
             </div>
         </div>
         <jsp:include page="Shared/_footer.html" />
+        <script src="Script/Resources/Validate.js"></script>
         <script src="Script/SERVIJOB/SearchWorker.js"></script>
     </body>
 </html>

@@ -86,8 +86,7 @@
                                                     <input type="password" id="txtPassword" class="form-control" autocomplete="off" onkeypress="return OnlyLettersSpaceless(event);">
                                                 </div>                                   
                                             </div>
-                                        </div> 
-                                        <div id="divMessage" class="col-lg-12"></div> 
+                                        </div>
                                         <div class="col-lg-12 text-right">
                                             <button type="button" id="btnClear" class="btn btn-sm"><i class="fa fa-eraser"></i> Limpiar</button>
                                             <button type="button" id="btnNew" class="btn btn-sm btn-warning"><i class="fa fa-user-plus"></i> Crear</button>                                                

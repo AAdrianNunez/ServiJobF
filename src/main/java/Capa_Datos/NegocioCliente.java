@@ -1,23 +1,19 @@
-
 package Capa_Datos;
 
 import Class.*;
 import util.MySQLConexion;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
+
 public class NegocioCliente {
     
-    public Cliente ValidarCliente(String Email, String Password){
+    public Cliente ValidarEmail(String Email, int IDCliente){
         Cliente c=new Cliente();
         try{
             MySQLConexion MySQL=new MySQLConexion();
-            String SQL = "SELECT IDCliente, Nombre, Apellido FROM cliente WHERE UPPER(Email) = UPPER('"+ Email +"') AND Password = '"+ Password + "'";
+            String SQL = "SELECT Email FROM cliente WHERE UPPER(Email) = UPPER('"+ Email +"') AND IDCliente != '"+ IDCliente + "'";
             ResultSet result=MySQL.Listar(SQL);            
             while(result.next()){
-                c.setIDCliente(result.getInt("IDCliente"));
-                c.setNombre(result.getString("Nombre"));
-                c.setApellido(result.getString("Apellido"));
+                c.setNombre(result.getString("Email"));
             }     
         }catch (Exception ex){
             ex.printStackTrace();

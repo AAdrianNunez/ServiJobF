@@ -1,0 +1,23 @@
+.rounded-circle{
+    height: 128px;    
+    width: 128px;
+}
+.clasificacion input[type="radio"] {
+  display: none;
+}
+.clasificacion label {
+  font-size: 22px;
+  color: #888888;
+  cursor: pointer;
+}
+.clasificacion {
+  direction: rtl;
+  unicode-bidi: bidi-override;
+}
+.clasificacion label:hover,
+.clasificacion label:hover ~ label {
+  color: #f7a54a;
+}
+.clasificacion input[type="radio"]:checked ~ label {
+  color: orange;
+}

@@ -1,21 +1,13 @@
 
 package Class;
 
-import java.util.*;
 
 public class Calificacion {
     private int IDCalificacion;
     private int IDCliente;
     private int IDTrabajador;
-    public int Puntajes;
+    public int Puntaje;
     
-    public double PromedioCalificacion(List<Calificacion> list){
-       double sum=0;
-       for(Calificacion x:list){
-           sum += x.Puntajes;
-       }
-       return sum/list.size();
-    }
     
     public int getIDCalificacion() {
         return IDCalificacion;
@@ -33,12 +25,12 @@ public class Calificacion {
         this.IDTrabajador = IDTrabajador;
     }
 
-    public int getPuntajes() {
-        return Puntajes;
+    public int getPuntaje() {
+        return Puntaje;
     }
 
-    public void setPuntajes(int Puntajes) {
-        this.Puntajes = Puntajes;
+    public void setPuntaje(int Puntaje) {
+        this.Puntaje = Puntaje;
     }
 
     public int getIDCliente() {

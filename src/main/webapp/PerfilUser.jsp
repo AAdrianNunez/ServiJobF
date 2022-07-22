@@ -6,7 +6,7 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">    
-        <title>SERVIJOB - Perfil</title>
+        <title>SERVIJOB - Perfil Cliente</title>
         <jsp:include page="Shared/_link.html" />
     </head>
     <body class="ScrollbarPage">
@@ -84,9 +84,8 @@
                                                 </div>                                   
                                             </div>
                                         </div> 
-                                        <div id="divMessage" class="col-lg-12"></div> 
                                         <div class="col-lg-12 text-right">                                            
-                                            <button type="button" id="btnUpdate" class="btn btn-sm btn-warning"><i class="fa fa-user-plus"></i> Guardar</button>                                                
+                                            <button type="button" id="btnUpdate" class="btn btn-sm btn-warning"><i class="fa fa-save"></i> Guardar</button>                                                
                                         </div>                                             
                                     </div>
                                 </div>
@@ -99,7 +98,7 @@
                 </div>
             </div>
         </div>
-         <jsp:include page="Shared/_footer.html" />
+         <jsp:include page="Shared/_footer.html"/>
          <script src="Script/Resources/Validate.js"></script>
          <script src="Script/SERVIJOB/PerfilUser.js"></script>
     </body>

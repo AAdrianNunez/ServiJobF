@@ -1,3 +1,13 @@
+$(document).ready(function () {
+    $(".select2").select2({
+        minimumResultsForSearch: Infinity,
+        width: '100%'
+    });
+    $('.select2').on("select2:open", function (e) {
+        ScrollbarSelect();
+    });   
+});
+
 $('#btnNew').click(function () {
     let Nombre = $("#txtNombre").val();
     let Apellido = $("#txtApellido").val();
@@ -7,42 +17,49 @@ $('#btnNew').click(function () {
     let Email = $("#txtEmail").val();
     let Password = $("#txtPassword").val();    
     if(!checkRequiret($("#txtNombre"))){        
-        $("#divMessage").html(`<div class="alert alert-danger">No ha ingresado nombres.</div>`);
+        message("error", "No ha ingresado nombres.", "Error de Dato"); 
         return false;
     }
     if(!checkRequiret($("#txtApellido"))){        
-        $("#divMessage").html(`<div class="alert alert-danger">No ha ingresado apellidos.</div>`);
+        message("error", "No ha ingresado apellidos.", "Error de Dato");
         return false;
     }    
     if(TipoDocumento === 0){        
-        $("#divMessage").html(`<div class="alert alert-danger">Debe seleccionar un tipo de documento.</div>`);
+        message("error", "Debe seleccionar un tipo de documento.", "Error de Dato");
         return false;
     } 
     if(TipoDocumento === 1){        
         if(NumeroDocumento.length !== 8){        
-            $("#divMessage").html(`<div class="alert alert-danger">El número de documento no es valido.</div>`);
+            message("error", "El número de documento no es valido.", "Error de Dato");
             return false;
         }
     } else {
         if(NumeroDocumento.length !== 12){        
-            $("#divMessage").html(`<div class="alert alert-danger">El número de documento no es valido.</div>`);
+            message("error", "El número de documento no es valido.", "Error de Dato");
             return false;
         }
     }
-    if(Telefono.length < 9){        
-        $("#divMessage").html(`<div class="alert alert-danger">El número teléfonico no es valido.</div>`);
+    if(Telefono.length < 9){
+        message("error", "El número teléfonico no es valido.", "Error de Dato");
         return false;
     } 
-    if(!checkEmail($("#txtEmail"))){        
-        $("#divMessage").html(`<div class="alert alert-danger">El email ingresado no es válido.</div>`);
+    if(!checkEmail($("#txtEmail"))){  
+        message("error", "El email ingresado no es válido.", "Error de Dato");
         return false;
     }
-    if(Password.length < 8){        
-        $("#divMessage").html(`<div class="alert alert-danger">Contrasena no valida (minimo 8 caracteres).</div>`);
+    if(Password.length < 8){ 
+        message("error", "Contraseña no valida (minimo 8 caracteres).", "Error de Dato");
         return false;
     }
-    RegistrarCliente(Nombre, Apellido, Telefono, Password, TipoDocumento, NumeroDocumento, Email);  
-  
+    op = "1";      
+    $.get("ControlCliente", {op, Email, IDCliente}, (response) => {  
+        const dato = JSON.parse(response);
+        if(dato.Email === ""){    
+            RegistrarCliente(Nombre, Apellido, Telefono, Password, TipoDocumento, NumeroDocumento, Email); 
+        } else {
+            message("error", "El email ya se encuentra registrado.", "Error de Dato");   
+        }
+    });
 });
 
 function RegistrarCliente(Nombre, Apellido, Telefono, Password, TipoDocumento, NumeroDocumento, Email){
@@ -51,9 +68,9 @@ function RegistrarCliente(Nombre, Apellido, Telefono, Password, TipoDocumento, N
         const dato = JSON.parse(response);
         if(dato > 0){ 
             Limpiar();
-            $("#divMessage").html(`<div class="alert alert-success">Se creo la cuenta satisfactoriamente.</div>`);            
+            SweetAlert("success", "Operación Exitosa", "Se creo la cuenta satisfactoriamente.");           
         } else {
-            $("#divMessage").html(`<div class="alert alert-danger">Error al crear la cuenta.</div>`);            
+            SweetAlert("error", "Operación Inválida", "Error al crear la cuenta.");            
         }
     });
 }

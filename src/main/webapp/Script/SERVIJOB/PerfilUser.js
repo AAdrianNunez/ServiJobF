@@ -6,7 +6,14 @@ $(document).ready(function () {
         GetCliente(IDCliente);    
     } else {
         window.location.href = "Login.jsp";  
-    }    
+    }
+    $(".select2").select2({
+        minimumResultsForSearch: Infinity,
+        width: '100%'
+    });
+    $('.select2').on("select2:open", function (e) {
+        ScrollbarSelect();
+    });
 });
 
 function GetCliente(IDCliente){     
@@ -15,8 +22,8 @@ function GetCliente(IDCliente){
         const dato = JSON.parse(response); 
         if(dato.IDCliente > 0){            
             $("#txtNombre").val(dato.Nombre);
-            $("#txtApellido").val(dato.Apellido);
-            $("#ddlTipoDocumento").val(dato.TipoDocumento);
+            $("#txtApellido").val(dato.Apellido);            
+            $("#ddlTipoDocumento").select2("val", dato.TipoDocumento);
             $("#txtNumeroDocumento").val(dato.NumeroDocumento);
             $("#txtTelefono").val(dato.Telefono);
             $("#txtEmail").val(dato.Email);
@@ -31,27 +38,35 @@ $('#btnUpdate').click(function () {
     let Telefono = $("#txtTelefono").val();
     let Email = $("#txtEmail").val();
     let Password = $("#txtPassword").val();   
-    if(!checkRequiret($("#txtNombre"))){        
-        $("#divMessage").html(`<div class="alert alert-danger">No ha ingresado nombres.</div>`);
+    if(!checkRequiret($("#txtNombre"))){    
+        message("error", "No ha ingresado nombres.", "Error de Dato");        
         return false;
     }
     if(!checkRequiret($("#txtApellido"))){        
-        $("#divMessage").html(`<div class="alert alert-danger">No ha ingresado apellidos.</div>`);
+        message("error", "No ha ingresado apellidos.", "Error de Dato");        
         return false;    
     }
     if(Telefono.length < 9){        
-        $("#divMessage").html(`<div class="alert alert-danger">El número teléfonico no es valido.</div>`);
+        message("error", "El número teléfonico no es valido.", "Error de Dato");        
         return false;
     } 
     if(!checkEmail($("#txtEmail"))){        
-        $("#divMessage").html(`<div class="alert alert-danger">El email ingresado no es válido.</div>`);
+        message("error", "El email ingresado no es válido.", "Error de Dato");        
         return false;
     }
     if(Password.length < 8){        
-        $("#divMessage").html(`<div class="alert alert-danger">Contrasena no valida (minimo 8 caracteres).</div>`);
+        message("error", "Contraseña no valida (minimo 8 caracteres).", "Error de Dato");
         return false;
     }
-    ActualizarCliente(Nombre, Apellido, Telefono, Password, Email);  
+    op = "1";      
+    $.get("ControlCliente", {op, Email, IDCliente}, (response) => {  
+        const dato = JSON.parse(response);
+        if(dato.Email === ""){    
+            ActualizarCliente(Nombre, Apellido, Telefono, Password, Email); 
+        } else {
+            message("error", "El email ya se encuentra registrado.", "Error de Dato");   
+        }
+    });  
 });
 
 function ActualizarCliente(Nombre, Apellido, Telefono, Password, Email){
@@ -59,9 +74,9 @@ function ActualizarCliente(Nombre, Apellido, Telefono, Password, Email){
     $.get("ControlCliente", {op, IDCliente, Nombre, Apellido, Telefono, Password, Email}, (response) => {  
         const dato = JSON.parse(response);
         if(dato > 0){ 
-            $("#divMessage").html(`<div class="alert alert-success">Se actualizo el perfil satisfactoriamente.</div>`);            
+            SweetAlert("success", "Operación Exitosa", "Se actualizo el perfil satisfactoriamente.");                    
         } else {
-            $("#divMessage").html(`<div class="alert alert-danger">Error al actualizar el perfil.</div>`);            
+            SweetAlert("error", "Operación Inválida", "Error al actualizar el perfil.");            
         }
     });
 }
